@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+    <link rel="stylesheet" href="/static/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<!-- ------------------------------------------------>
+<script>
+  $(document).ready(function() {
+
+    // Set the URL for the ThingSpeak API call
+    var url1 = "https://api.thingspeak.com/channels/1943514/feeds.json?api_key=UKV05R56CPXEVFRA&results=2"
+    var url2 = "https://api.thingspeak.com/channels/1943517/feeds.json?api_key=4CWW5ZVDS6D7FGT7&results=2"
+    var url3 = "https://api.thingspeak.com/channels/1943526/feeds.json?api_key=DPFC4JA33O8DALM8&results=2"
+    var fieldValueA = "Abnormal"
+    var fieldValueN = "Normal"
+    var fieldValueT = "Temperature error"
+
+    // Make the API call and update the HTML content with the field value
+  //   $.getJSON(url, function(data) {
+  //     var fieldValue1 = data.feeds[1].field1; // Change field1 to the field number you want to display
+  //     var fieldValue2 = data.feeds[1].field2;
+  //     var fieldValue3 = data.feeds[1].field3;
+  //     $("#fieldValue1").html(fieldValue1);
+  //     $("#fieldValue2").html(fieldValue2);
+  //     $("#fieldValue3").html(fieldValue3);
+  //   });
+
+    // Refresh the field value every 10 seconds
+    setInterval(function() {
+      $.getJSON(url1, function(data) {
+        var fieldValue1 = data.feeds[1].field1; // Change field1 to the field number you want to display
+        var fieldValue2 = data.feeds[1].field2;
+        var fieldValue3 = Math.round(data.feeds[1].field3);
+
+        $("#fieldValue1").html(fieldValue1);
+        $("#fieldValue2").html(fieldValue2);
+        $("#fieldValue3").html(fieldValue3);
+
+        // if(fieldValue2 < 85){
+        //   $("#fieldValue10").html(fieldValueA);
+        // }
+        // else if (fieldValue2 > 85) {
+        //   $("#fieldValue10").html(fieldValueN);
+        // }
+        // else if(fieldValue1 < 65 || fieldValue1 > 120){
+        //   $("#fieldValue10").html(fieldValueA);
+        // }
+        // else if (fieldValue1 > 65 || fieldValue1 < 120) {
+        //   $("#fieldValue10").html(fieldValueN);
+        // }
+        // else if(fieldValue3 == -127){
+        //   $("#fieldValue10").html(fieldValueT);
+        // }
+        // else if(fieldValue3 < 30 || fieldValue3 > 38 ){
+        //   $("#fieldValue10").html(fieldValueA);
+        // }
+        // else if (fieldValue3 > 30 || fieldValue3 < 38 ) {
+        //   $("#fieldValue10").html(fieldValueN);
+        // }
+        if ((fieldValue2 > 85) && (fieldValue3 > 30 ) && ( fieldValue3 < 38 ) && (fieldValue1 > 65 ) && (fieldValue1 < 120) ) {
+          $("#fieldValue10").html(fieldValueN);
+        }
+        else{
+          $("#fieldValue10").html(fieldValueA);
+        }
+        if (65<fieldValue1<120){
+          document.getElementById("fieldValue1").style.color = "green";
+        }else{
+          document.getElementById("fieldValue1").style.color = "red";
+        }
+        if (90<fieldValue2<=100){
+          document.getElementById("fieldValue2").style.color = "green";
+        }else{
+          document.getElementById("fieldValue2").style.color = "red";
+        }
+        if (30<fieldValue3<38){
+          document.getElementById("fieldValue3").style.color = "green";
+        }else{
+          document.getElementById("fieldValue3").style.color = "red";
+        }
+
+      });
+
+      $.getJSON(url2, function(data) {
+        var fieldValue4 = data.feeds[1].field1; // Change field1 to the field number you want to display
+        var fieldValue5 = data.feeds[1].field2;
+        var fieldValue6 = Math.round(data.feeds[1].field3);
+        $("#fieldValue4").html(fieldValue4);
+        $("#fieldValue5").html(fieldValue5);
+        $("#fieldValue6").html(fieldValue6);
+
+        if ((fieldValue5 > 85) && (fieldValue6 > 30 ) && ( fieldValue6 < 38 ) && (fieldValue4 > 65 ) && (fieldValue4 < 120) ) {
+          $("#fieldValue11").html(fieldValueN);
+        }
+        else{
+          $("#fieldValue11").html(fieldValueA);
+        }
+        if (65<fieldValue1<120){
+          document.getElementById("fieldValue4").style.color = "green";
+        }else{
+          document.getElementById("fieldValue4").style.color = "red";
+        }
+        if (90<fieldValue2<=100){
+          document.getElementById("fieldValue5").style.color = "green";
+        }else{
+          document.getElementById("fieldValue5").style.color = "red";
+        }
+        if (30<fieldValue3<38){
+          document.getElementById("fieldValue6").style.color = "green";
+        }else{
+          document.getElementById("fieldValue6").style.color = "red";
+        }
+      });
+
+      $.getJSON(url3, function(data) {
+        var fieldValue7 = data.feeds[1].field1; // Change field1 to the field number you want to display
+        var fieldValue8 = data.feeds[1].field2;
+        var fieldValue9 = Math.round(data.feeds[1].field3);
+        $("#fieldValue7").html(fieldValue7);
+        $("#fieldValue8").html(fieldValue8);
+        $("#fieldValue9").html(fieldValue9);
+
+        if ((fieldValue8 > 85) && (fieldValue9 > 30 ) && ( fieldValue9 < 38 ) && (fieldValue7 > 65 ) && (fieldValue7 < 120) ) {
+          $("#fieldValue12").html(fieldValueN);
+        }
+        else{
+          $("#fieldValue12").html(fieldValueA);
+        }
+        if (65<fieldValue1<120){
+          document.getElementById("fieldValue7").style.color = "green";
+        }else{
+          document.getElementById("fieldValue7").style.color = "red";
+        }
+        if (90<fieldValue2<=100){
+          document.getElementById("fieldValue8").style.color = "green";
+        }else{
+          document.getElementById("fieldValue8").style.color = "red";
+        }
+        if (30<fieldValue3<38){
+          document.getElementById("fieldValue9").style.color = "green";
+        }else{
+          document.getElementById("fieldValue9").style.color = "red";
+        }
+      });
+    }, );
+  });
+
+</script>
+<!-- ------------------------------------------------>
+</head>
+<body id="body-pd">
+        <header class="header" id="header">
+            <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i> </div>
+            <!-- <div class="header_img"> <img src="https://i.imgur.com/hczKIze.jpg" alt=""> </div> -->
+        </header>
+        <div class="l-navbar" id="nav-bar">
+            <nav class="nav">
+                <div> <a href="#" class="nav_logo"> <i class='bx bx-layer nav_logo-icon'></i> <span class="nav_logo-name">IPMS</span> </a>
+                    <div class="nav_list">
+                    <a href="/route/dashboard" class="nav_link active"> <i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name">Dashboard</span> </a>
+                    <a href="/route/patient" class="nav_link"> <i class='bx bx-user nav_icon'></i> <span class="nav_name">Patients</span> </a>
+                    <!-- <a href="#" class="nav_link"> <i class='bx bx-message-square-detail nav_icon'></i> <span class="nav_name">Messages</span> </a>
+                     <a href="#" class="nav_link"> <i class='bx bx-bookmark nav_icon'></i> <span class="nav_name">Bookmark</span> </a>
+                     <a href="#" class="nav_link"> <i class='bx bx-folder nav_icon'></i> <span class="nav_name">Files</span> </a>  -->
+                     <a href="/route/stats" class="nav_link"> <i class='bx bx-bar-chart-alt-2 nav_icon'></i> <span class="nav_name">Stats</span> </a>
+                    </div>
+                </div>
+            <a href="/route/logout" class="nav_link"> <i class='bx bx-log-out nav_icon'></i> <span class="nav_name">SignOut</span> </a>
+            </nav>
+        </div>
+        <!--Container Main start-->
+        <div class="height-100 bg-light">
+            <h4>Dashboard</h4>
+            <div class="card-group">
+            <div class="card text-white bg-dark mb-3" style="max-width: 30rem; margin: 10px;">
+                <div class="card-header"><h4>Patient 1</h4></div>
+                <div class="card-body">
+                  <h5 class="card-title">Pulse : <span id="fieldValue1"></span> Bpm</h5>
+                  <h5 class="card-title">SpO2 : <span id="fieldValue2"></span> %</h5>
+                  <h5 class="card-title">Temp : <span id="fieldValue3"></span> °C</h5>
+                  <h5 class="card-title">Patient condition : <span id="fieldValue10"></span></h5>
+                </div>
+            </div>
+
+            <div class="card text-white bg-dark mb-3" style="max-width: 30rem; margin: 10px;">
+                <div class="card-header"><h4>Patient 2</h4></div>
+                <div class="card-body">
+                  <h5 class="card-title">Pulse : <span id="fieldValue4"></span> Bpm</h5>
+                  <h5 class="card-title">SpO2 : <span id="fieldValue5"></span> %</h5>
+                  <h5 class="card-title">Temp : <span id="fieldValue6"></span> °C</h5>
+                  <h5 class="card-title">Patient condition : <span id="fieldValue11"></span></h5>
+
+                </div>
+              </div>
+
+              <div class="card text-white bg-dark mb-3" style="max-width: 30rem; margin: 10px;">
+                <div class="card-header"><h4>Patient 3</h4></div>
+                <div class="card-body">
+                  <h5 class="card-title">Pulse : <span id="fieldValue7"></span> Bpm</h5>
+                  <h5 class="card-title">SpO2 : <span id="fieldValue8"></span> %</h5>
+                  <h5 class="card-title">Temp : <span id="fieldValue9"></span> °C</h5>
+                  <h5 class="card-title">Patient condition : <span id="fieldValue12"></span></h5>
+
+                </div>
+              </div>
+        </div>
+
+        </div>
+        <!--Container Main end-->
+        <script>
+            document.addEventListener("DOMContentLoaded", function(event) {
+
+   const showNavbar = (toggleId, navId, bodyId, headerId) =>{
+   const toggle = document.getElementById(toggleId),
+   nav = document.getElementById(navId),
+   bodypd = document.getElementById(bodyId),
+   headerpd = document.getElementById(headerId)
+
+   // Validate that all variables exist
+   if(toggle && nav && bodypd && headerpd){
+   toggle.addEventListener('click', ()=>{
+   // show navbar
+   nav.classList.toggle('show')
+   // change icon
+   toggle.classList.toggle('bx-x')
+   // add padding to body
+   bodypd.classList.toggle('body-pd')
+   // add padding to header
+   headerpd.classList.toggle('body-pd')
+   })
+   }
+   }
+
+   showNavbar('header-toggle','nav-bar','body-pd','header')
+
+   /*===== LINK ACTIVE =====*/
+   const linkColor = document.querySelectorAll('.nav_link')
+
+   function colorLink(){
+   if(linkColor){
+   linkColor.forEach(l=> l.classList.remove('active'))
+   this.classList.add('active')
+   }
+   }
+   linkColor.forEach(l=> l.addEventListener('click', colorLink))
+
+    // Your code to run since DOM is loaded and ready
+   });
+
+        </script>
+</body>
+</html>
